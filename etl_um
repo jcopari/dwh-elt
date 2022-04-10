@@ -1,0 +1,40 @@
+CREATE TABLE Dim_Fabrica(
+	Cod_Fabrica VARCHAR(50) NOT NULL PRIMARY KEY,
+	Desc_Fabrica VARCHAR(200) NULL
+
+);
+
+CREATE TABLE dim_cliente(
+	Cod_Cliente VARCHAR(50) NOT NULL PRIMARY KEY,
+	Desc_Cliente VARCHAR(200) NULL, 
+	Cod_Cidade VARCHAR(50),
+	Desc_Cidade VARCHAR(200),
+	Cod_Estado VARCHAR(50),
+	Desc_Estado VARCHAR(200),
+	Cod_Regiao VARCHAR(50),
+	Desc_Regiao VARCHAR(200),
+	Cod_Segmento VARCHAR(50),
+	Desc_Segmento VARCHAR(200)
+);
+
+CREATE TABLE dim_categoria(
+	Cod_Categoria VARCHAR(50) NOT NULL PRIMARY KEY,
+	Desc_Categoria VARCHAR(200) NULL
+);
+
+
+CREATE TABLE dim_marca(
+	Cod_Marca VARCHAR(50) NOT NULL PRIMARY KEY,
+	Desc_Marca VARCHAR(200) NULL,
+	Cod_Categoria VARCHAR(50) NULL,
+	CONSTRAINT FK_dim_marca_dim_categoria FOREIGN KEY (Cod_Categoria) REFERENCES dim_categoria (Cod_Categoria) 
+);
+
+CREATE TABLE dim_produto(
+	Cod_Produto VARCHAR(50) NOT NULL PRIMARY KEY,
+	Desc_Produto VARCHAR(200) NULL,
+	Atr_Tamanho VARCHAR(200) NULL,
+	Atr_Sabor VARCHAR(200) NULL,
+	Cod_Marca VARCHAR(50) NULL,
+	CONSTRAINT FK_Dim_Produto_Dim_Marca FOREIGN KEY (Cod_Marca) REFERENCES dim_marca (Cod_Marca)
+);

@@ -1,0 +1,147 @@
+SELECT * FROM aluno
+
+DELETE FROM aluno
+	WHERE nome = 'Nico'
+	
+INSERT INTO aluno(
+	nome, 
+	cpf, 
+	observação,
+	idade,
+	dinheiro,
+	altura,
+	ativo,
+	data_nascimento,
+	hora_aula,
+	matriculado_em		 
+		) VALUES (
+		'João',
+		'12345678911',
+		'Nada',
+		 25,
+		210.00,
+		178,
+		TRUE,
+		'1998-03-03',
+		'13:00:00',
+		'2010-02-01 17:00:00'
+		);
+		
+SELECT * FROM aluno
+
+SELECT nome AS "Nome do Aluno",
+	   matriculado_em AS "Quando se matriculou",
+	   idade AS idade_do_aluno
+	   FROM aluno;
+	   
+
+INSERT INTO aluno (nome) VALUES ('Nico Estefan');
+INSERT INTO aluno (nome) VALUES ('Diego Abril');
+INSERT INTO aluno (nome) VALUES ('Grabiel Carmal');
+INSERT INTO aluno (nome) VALUES ('Malissa Gramalhães');
+INSERT INTO aluno (nome) VALUES ('Roão Jopaci');
+
+SELECT *
+    FROM aluno
+ WHERE nome = 'Diogo';
+ 
+SELECT * 
+    FROM aluno
+ WHERE nome LIKE 'Di_go';
+ 
+ SELECT * 
+    FROM aluno
+ WHERE nome LIKE 'D%';
+ 
+ SELECT * 
+    FROM aluno
+ WHERE nome LIKE '% %';
+ 
+ SELECT * 
+    FROM aluno
+ WHERE nome LIKE '%i%a%';
+ 
+SELECT * FROM aluno
+	WHERE idade IS NOT NULL
+	
+SELECT * FROM aluno
+	WHERE nome = 'João'
+	AND cpf IS NOT NULL
+
+SELECT * FROM aluno
+	WHERE nome = '%a%'
+	OR cpf IS NOT NULL   
+	
+DROP TABLE cursos;	
+	
+CREATE TABLE cursos(
+	id INTEGER PRIMARY KEY,
+	nome varchar(255) NOT NULL 	
+);
+	
+	
+INSERT INTO cursos(id, nome) VALUES(1, 'Javascript');
+INSERT INTO cursos(id, nome) VALUES(2, 'Postgres');
+
+SELECT * FROM alunos
+
+CREATE TABLE alunos(
+	id INTEGER PRIMARY KEY,
+	nome VARCHAR(255)
+)
+
+INSERT INTO alunos VALUES (1, 'João');
+INSERT INTO alunos VALUES (2, 'Grabiel');
+
+CREATE TABLE curso_aluno(
+	aluno_id INTEGER,
+	curso_id INTEGER,
+	PRIMARY KEY(aluno_id, curso_id),
+	
+	FOREIGN KEY (aluno_id)
+	REFERENCES alunos(id),
+	
+	FOREIGN KEY (curso_Id)
+	REFERENCES cursos(id)
+	
+)
+
+SELECT * FROM cursos;
+SELECT * FROM alunos;
+SELECT * FROM curso_aluno
+
+INSERT INTO alunos(id, nome) VALUES(3, 'Roão')
+INSERT INTO cursos(id,nome) VALUES (3,'CSS')
+INSERT INTO curso_aluno(aluno_id, curso_id) VALUES (1, 2)
+INSERT INTO curso_aluno(aluno_id, curso_id) VALUES (2,2)
+INSERT INTO curso_aluno(aluno_id, curso_id) VALUES (2,1)
+INSERT INTO curso_aluno(aluno_id, curso_id) VALUES (1,1)
+
+SELECT alunos.nome AS "Nome",
+	   cursos.nome AS "Curso"
+	FROM alunos 
+	JOIN curso_aluno ON curso_aluno.aluno_id = alunos.id 
+	JOIN cursos ON cursos.id = curso_aluno.curso_id
+
+SELECT alunos.nome AS "Nome",
+	   cursos.nome AS "Curso"
+	 FROM alunos
+	 LEFT JOIN curso_aluno ON curso_aluno.aluno_id = alunos.id
+	 LEFT JOIN cursos ON cursos.id = curso_aluno.curso_id
+	 
+SELECT alunos.nome AS "Nome",
+	   cursos.nome AS "Cursos"
+	   FROM alunos
+	   RIGHT JOIN curso_aluno ON curso_aluno.aluno_id = alunos.id
+	   RIGHT JOIN cursos ON cursos.id = curso_aluno.curso_id
+	   
+SELECT alunos.nome AS "Nome",
+       cursos.nome AS "Curso"
+	   FROM alunos
+	   FULL JOIN curso_aluno ON curso_aluno.aluno_id = alunos.id
+	   FULL JOIN cursos ON cursos.id = curso_aluno.curso_id
+	   
+SELECT alunos.nome AS "Nome",
+		cursos.nome AS "Cursos"
+		FROM alunos
+		CROSS JOIN cursos
